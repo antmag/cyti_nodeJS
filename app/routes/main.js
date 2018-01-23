@@ -3,17 +3,21 @@
  */
 
 var express = require('express');
+var app = express();
 var router = express.Router();
+var path = require("path");
 var bodyParser = require('body-parser');
 var survey_controller = require('../controller/surveyController');
 var question_answer_controller = require('../controller/question_answerController');
+var http = require("http");
+var server = http.createServer(app);// Creation du serveur web
 
 
 //Body parser
-router.use(bodyParser.urlencoded({
+app.use(bodyParser.urlencoded({
     extended: true
 }));
-router.use(bodyParser.json());
+app.use(bodyParser.json());
 
 
 
@@ -33,34 +37,37 @@ var allowCrossDomain = function(req, res, next) {
         next();
     }
 };
-router.use(allowCrossDomain);
+app.use(allowCrossDomain);
+
+app.use("/index", express.static(path.join(__dirname, "../../public")));
 
 // middleware that is specific to this router
-router.use(function timeLog(req, res, next) {
+app.use(function timeLog(req, res, next) {
     console.log('Time: ', Date.now());
     next();
 });
 
 // Add a new survey
-router.post('/', survey_controller.new_survey);
+app.post('/', survey_controller.new_survey);
 
 //List all surveys with questions and answers for a specific user
-router.get('/', survey_controller.list_all);
+app.get('/', survey_controller.list_all);
 
 // Add a new question with its respective answers
-router.post('/survey/add_question',question_answer_controller.add_question_with_answers);
+app.post('/survey/add_question',question_answer_controller.add_question_with_answers);
 
 //Update the status of a targeted survey
-router.post('/survey/change_status', survey_controller.change_status_survey);
+app.post('/survey/change_status', survey_controller.change_status_survey);
 
 //Delete a targeted survey
-router.delete('/survey/delete', survey_controller.delete_survey);
+app.delete('/survey/delete', survey_controller.delete_survey);
 
 //Delete a specified question with its answers
-router.delete('/survey/delete_question', question_answer_controller.delete_question);
+app.delete('/survey/delete_question', question_answer_controller.delete_question);
 
 //Update a survey
-router.post('/survey/update', survey_controller.update_survey);
-module.exports = router;
+app.post('/survey/update', survey_controller.update_survey);
 
-router.get('/stats', survey_controller.json_file_stats);
+app.post('/test', survey_controller.json_file_stats);
+
+module.exports = app;
