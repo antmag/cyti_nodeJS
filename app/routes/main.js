@@ -67,6 +67,6 @@ app.delete('/survey/delete_question', question_answer_controller.delete_question
 //Update a survey
 app.post('/survey/update', survey_controller.update_survey);
 
-app.post('/test', survey_controller.json_file_stats);
+app.get('/stats', survey_controller.json_file_stats);
 
 module.exports = app;
