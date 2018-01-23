@@ -153,12 +153,10 @@ exports.updates_after_survey = function(req, res){
     });
     });
 
-
      survey_model.findById(req.params.id_survey, function(err, survey){
         if(err) res.status(500).send(err);
         else{
             var survey_points = survey.points;
-            console.log("id_user " + req.body.id_user);
             user_model.findById(req.body.id_user, function(err, user) {
                 if (err) console.log(err);
                 else {
@@ -169,8 +167,43 @@ exports.updates_after_survey = function(req, res){
                     }, {new: true}, function (err, user) {
                         if (err) res.send(err);
                         else {
-                            console.log("new update point: " + user.points + " surveys_array : "
-                                + user.surveys+ " surveys points : " + survey_points);
+                            user_model.findById(req.body.id_user).populate({
+                                path: "surveys", model: "survey"}).exec(function(err, user ) {
+                                if (err) res.send(err);
+                                else {
+                                var myObj, x;                                
+                                myObj = {
+                                    "surveys":user.surveys,
+                                    "beauty":0,
+                                    "sport":0,
+                                    "shopping":0,
+                                    "fashion":0,
+                                    "total":0
+                                };
+
+                                user.surveys.map(function(item) { 
+                                  switch(item.theme) {
+                                        case "beauty":
+                                            myObj.beauty = Number(myObj.beauty)+1;
+                                            break;
+                                        case "sport":
+                                            myObj.sport = Number(myObj.sport)+1;
+                                            break;
+                                        case "shopping":
+                                            myObj.shopping = Number(myObj.shopping)+1;
+                                            break;
+                                        case "fashion":
+                                            myObj.fashion = Number(myObj.fashion)+1;
+                                            break;
+                                        default:
+                                    }       
+                                });
+                                    myObj.total=Number(myObj.beauty)+Number(myObj.fashion)+Number(myObj.sport)+Number(myObj.shopping);
+                                    res.json(myObj);
+                                }
+
+
+                            });
                         }
                     });
                 }
@@ -188,7 +221,6 @@ exports.list_surveys_completed = function(req, res){
         if (err) res.send(err);
         else {
         var myObj, x;
-        console.log(user);
         
         myObj = {
             "surveys":user.surveys,
@@ -198,6 +230,7 @@ exports.list_surveys_completed = function(req, res){
             "fashion":0,
             "total":0
         };
+
         user.surveys.map(function(item) { 
           switch(item.theme) {
                 case "beauty":

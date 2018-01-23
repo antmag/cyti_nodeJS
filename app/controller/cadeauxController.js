@@ -18,11 +18,11 @@ var sanitize = require('mongo-sanitize');
 exports.new_cadeau = function(req, res) {
 
         var cadeaux = {
-            title: sanitize("Cadeaux numero 1"),
-            description: sanitize("Petit cadeau tres sympa pas cher"),
+            title: sanitize("Tee Shirt Nike"),
+            description: sanitize("Le tee-shirt Nike Sportswear pour Homme est fabriqué dans un tissu 100 % coton pour un confort au quotidien et une résistance longue durée."),
             cadeaux_type: sanitize("1"),
-            points: 45,
-            url: sanitize("https://shoutem.github.io/img/ui-toolkit/examples/image-7.png")        };
+            points: 165,
+            url: "https://c.static-nike.com/a/images/t_PDP_1280_v1/f_auto/bmdaf9nwmdadb98xlkmq/tee-shirt-sb-logo-pour-olTWbPMg.jpg"        };
         new cadeaux_model(cadeaux).save(function (err, cadeaux) {
             if (err) {
                 throw err;
