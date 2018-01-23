@@ -281,6 +281,7 @@ exports.json_file_stats = function(req, res) {
 function download(url, dest, cb) {
     // on créé un stream d'écriture qui nous permettra
     // d'écrire au fur et à mesure que les données sont téléchargées
+    console.log("before createWriteStream");
     const file = fs.createWriteStream(dest);
     var httpMethod;
 
@@ -290,6 +291,7 @@ function download(url, dest, cb) {
     else httpMethod = http;
 
     // on lance le téléchargement
+    console.log("avant le telechargement");
     const request = httpMethod.get(url, function (response) {
         // on vérifie la validité du code de réponse HTTP
         if (response.statusCode !== 200) {

@@ -4,13 +4,12 @@
 
 var express = require('express');
 var app = express();
-var router = express.Router();
 var path = require("path");
 var bodyParser = require('body-parser');
 var survey_controller = require('../controller/surveyController');
 var question_answer_controller = require('../controller/question_answerController');
 var http = require("http");
-var server = http.createServer(app);// Creation du serveur web
+
 
 
 //Body parser
