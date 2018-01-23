@@ -195,7 +195,7 @@ exports.list_surveys_completed = function(req, res){
             "beauty":0,
             "sport":0,
             "shopping":0,
-            "mode":0,
+            "fashion":0,
             "total":0
         };
         user.surveys.map(function(item) { 
@@ -209,13 +209,13 @@ exports.list_surveys_completed = function(req, res){
                 case "shopping":
                     myObj.shopping = Number(myObj.shopping)+1;
                     break;
-                case "mode":
-                    myObj.mode = Number(myObj.mode)+1;
+                case "fashion":
+                    myObj.fashion = Number(myObj.fashion)+1;
                     break;
                 default:
             }       
         });
-            myObj.total=Number(myObj.beauty)+Number(myObj.mode)+Number(myObj.sport)+Number(myObj.shopping);
+            myObj.total=Number(myObj.beauty)+Number(myObj.fashion)+Number(myObj.sport)+Number(myObj.shopping);
             res.json(myObj);
         }
 
