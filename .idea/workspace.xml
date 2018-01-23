@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c41f33fa-bfde-4afe-907d-607ef0492447" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/theme_default.jpg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controller/surveyController.js" afterPath="$PROJECT_DIR$/app/controller/surveyController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controller/userController.js" afterPath="$PROJECT_DIR$/app/controller/userController.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/survey.js" afterPath="$PROJECT_DIR$/app/models/survey.js" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,11 +38,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="surveyController.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="surveyController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controller/surveyController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="77" column="18" lean-forward="true" selection-start-line="77" selection-start-column="18" selection-end-line="77" selection-end-column="18" />
+            <state relative-caret-position="272">
+              <caret line="279" column="34" lean-forward="true" selection-start-line="279" selection-start-column="34" selection-end-line="279" selection-end-column="34" />
               <folding>
                 <element signature="e#0#42#0" expanded="false" />
               </folding>
@@ -53,8 +53,8 @@
       <file leaf-file-name="survey.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/models/survey.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="20" column="24" lean-forward="false" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="24" />
+            <state relative-caret-position="30">
+              <caret line="16" column="14" lean-forward="false" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="14" />
               <folding>
                 <element signature="e#0#42#0" expanded="false" />
               </folding>
@@ -72,11 +72,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="userController.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="userController.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controller/userController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1020">
-              <caret line="162" column="42" lean-forward="true" selection-start-line="162" selection-start-column="42" selection-end-line="162" selection-end-column="42" />
+            <state relative-caret-position="124">
+              <caret line="156" column="43" lean-forward="true" selection-start-line="156" selection-start-column="43" selection-end-line="156" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -109,8 +109,20 @@
       <file leaf-file-name="answers_userController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controller/answers_userController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="98">
-              <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+            <state relative-caret-position="268">
+              <caret line="40" column="2" lean-forward="true" selection-start-line="40" selection-start-column="2" selection-end-line="40" selection-end-column="2" />
+              <folding>
+                <element signature="e#0#42#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="answer.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/models/answer.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="336">
+              <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
               <folding>
                 <element signature="e#0#42#0" expanded="false" />
               </folding>
@@ -147,6 +159,7 @@
       <find>create_answers</find>
       <find>survey_model</find>
       <find>findbyidan</find>
+      <find>mode</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -204,7 +217,6 @@
         <option value="$PROJECT_DIR$/app/models/schema_user.js" />
         <option value="$PROJECT_DIR$/app/routes/index.js" />
         <option value="$PROJECT_DIR$/app/routes/profil.js" />
-        <option value="$PROJECT_DIR$/app/models/survey.js" />
         <option value="$PROJECT_DIR$/app/models/answer.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/app/controller/answers_userController.js" />
@@ -212,8 +224,9 @@
         <option value="$PROJECT_DIR$/config/database.js" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/app/routes/main.js" />
-        <option value="$PROJECT_DIR$/app/controller/userController.js" />
         <option value="$PROJECT_DIR$/app/controller/surveyController.js" />
+        <option value="$PROJECT_DIR$/app/models/survey.js" />
+        <option value="$PROJECT_DIR$/app/controller/userController.js" />
       </list>
     </option>
   </component>
@@ -905,10 +918,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="317883000" />
+    <option name="totallyTimeSpent" value="320785000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -922,7 +936,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288364" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.51005024" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3535188" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3535188" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25718608" sideWeight="0.48994976" order="0" side_tool="false" content_ui="combo" />
@@ -1206,26 +1220,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/answer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#42#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/controller/answers_userController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#42#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/models/schema_answers_user.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
@@ -1266,16 +1260,6 @@
         <state relative-caret-position="115">
           <caret line="40" column="28" lean-forward="false" selection-start-line="40" selection-start-column="28" selection-end-line="40" selection-end-column="28" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/survey.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="20" column="24" lean-forward="false" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#42#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1332,21 +1316,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controller/userController.js">
+    <entry file="file://$PROJECT_DIR$/app/controller/answers_userController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="162" column="42" lean-forward="true" selection-start-line="162" selection-start-column="42" selection-end-line="162" selection-end-column="42" />
-          <folding />
+        <state relative-caret-position="268">
+          <caret line="40" column="2" lean-forward="true" selection-start-line="40" selection-start-column="2" selection-end-line="40" selection-end-column="2" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/answer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controller/surveyController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="77" column="18" lean-forward="true" selection-start-line="77" selection-start-column="18" selection-end-line="77" selection-end-column="18" />
+        <state relative-caret-position="272">
+          <caret line="279" column="34" lean-forward="true" selection-start-line="279" selection-start-column="34" selection-end-line="279" selection-end-column="34" />
           <folding>
             <element signature="e#0#42#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/models/survey.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="16" column="14" lean-forward="false" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#42#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controller/userController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="156" column="43" lean-forward="true" selection-start-line="156" selection-start-column="43" selection-end-line="156" selection-end-column="43" />
+          <folding />
         </state>
       </provider>
     </entry>

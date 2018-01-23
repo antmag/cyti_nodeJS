@@ -153,6 +153,7 @@ exports.updates_after_survey = function(req, res){
     });
     });
 
+
      survey_model.findById(req.params.id_survey, function(err, survey){
         if(err) res.status(500).send(err);
         else{

@@ -14,6 +14,7 @@ var surveySchema = new Schema({
     description: String,
     //start_date: Date,
     //end_date: Date,
+    nb_answers: {type: Number, default: 0},
     survey_type: String,
     theme: String,
     status: String,
