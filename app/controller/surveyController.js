@@ -39,9 +39,9 @@ exports.new_survey = function(req, res) {
 
     var picture = req.body.url;
 
-    if(picture !== "undefined" ){
-        picture= '../../public/images/' + sanitize(req.body.id_survey)  + "_" + Date.now() +'.jpg';
-        download(req.body.url, picture , function(err){
+    if(picture !== "" ){
+        picture= 'public/images/' + sanitize(req.body.id_survey)  + "_" + Date.now() +'.jpg';
+        download(req.body.url, "./" + picture , function(err){
             if (err) {
                 console.error(err);
                 return;
@@ -51,16 +51,16 @@ exports.new_survey = function(req, res) {
     }else{
         switch (req.body.theme) {
             case 'sport':
-                picture = "../../public/images/theme_sport_default.jpg";
+                picture = "public/images/theme_sport_default.jpg";
                 break;
             case 'beauty':
-                picture = "../../public/images/theme_beauty_default.jpg";
+                picture = "public/images/theme_beauty_default.jpg";
                 break;
             case 'fashion':
-                picture = "../../public/images/theme_fashion_default.jpg";
+                picture = "public/images/theme_fashion_default.jpg";
                 break;
             case 'shopping':
-                picture = "../../public/images/theme_shopping_default.jpg";
+                picture = "public/images/theme_shopping_default.jpg";
                 break;
         }
     }
@@ -79,7 +79,7 @@ exports.new_survey = function(req, res) {
         theme: sanitize(req.body.theme),
         status: "offline",
         points: randomIntInc(20,100),
-        picture_url: picture,
+        picture_url: "http://195.154.107.158:1337/" + picture,
         duration: ""
     };
     console.log(survey);
