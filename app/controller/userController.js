@@ -158,8 +158,9 @@ exports.updates_after_survey = function(req, res){
         if(err) res.status(500).send(err);
         else{
             var survey_points = survey.points;
+            console.log("id_user " + req.body.id_user);
             user_model.findById(req.body.id_user, function(err, user) {
-                if (err) res.status(500).send(err);
+                if (err) console.log(err);
                 else {
                     var points_user = user.points + survey_points;
                     user_model.findByIdAndUpdate(req.body.id_user, {
