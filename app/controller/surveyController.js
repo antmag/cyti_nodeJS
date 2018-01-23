@@ -65,7 +65,7 @@ exports.new_survey = function(req, res) {
                 picture = "public/images/theme_shopping_default.jpg";
                 break;
             default :
-                picture = "https://internetbusiness.fr/wp-content/uploads/2017/03/Remplir-sondage-en-ligne-1024x683.jpg";
+                picture = "public/images/theme_default.jpg";
         }
     }
 
