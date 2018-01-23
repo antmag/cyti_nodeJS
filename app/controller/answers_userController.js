@@ -20,8 +20,8 @@ exports.new_answer_user = function(req, res) {
     answer.id_user = req.body.id_contact ?
         req.body.id_contact: "undefined";
 
-    answer.id_survey = req.body.id_survey ?
-        req.body.id_survey: "undefined";
+    answer.id_survey = req.params.id_survey ?
+        req.params.id_survey: "undefined";
 
     answer.id_question = req.body.id_question ?
         req.body.id_question: "undefined";
@@ -29,11 +29,13 @@ exports.new_answer_user = function(req, res) {
     answer.id_answer = req.body.id_reponse ?
         req.body.id_reponse: "undefined";
 
-    answer_user_model.findOneAndUpdate({ "id_question": req.body.id_question }, {
-        $set: answer}, {new: true}, function (err) {
-        if (err) res.send(err);
+    console.log('answer ' + answer.id_answer + 'id_contact ' +req.body.id_contact);
+    answer_user_model.findOneAndUpdate({ 'id_question': req.body.id_question, 'id_user': req.body.id_contact}, {
+        $set: answer}, {upsert:true}, function (err) {
+        if (err) return res.send(err);
         else {
-            res.send("answer user saved");
+            console.log("answer user saved");
+            return res.send("answer user saved");
         }
     });
 };

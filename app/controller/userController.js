@@ -7,7 +7,8 @@ var database = require('../../config/database');
 var user_model = require('../models/schema_user');
 var cadeaux_model = require('../models/cadeaux');
 var survey_model = require('../models/survey');
-
+var answer_user_model = require('../models/schema_answers_user');
+var answer_model = require('../models/answer');
 //sanitizes inputs against query selector injection attacks
 var sanitize = require('mongo-sanitize');
 
@@ -92,8 +93,9 @@ exports.check_user = function(req, res, next){
                 // it means the database had an error while searching, hence the 500 status
                 return next(err);
             }
-            if(user[0] !== null){
+            if(user[0] != null){
                 console.log(user);
+                console.log("id facebook " + req.body.id_facebook + " lien " + req.body.lien + " username " + req.body.username);
                 res.json(user);
             }else{
                 var user = {
@@ -133,20 +135,26 @@ exports.check_user = function(req, res, next){
 
 exports.updates_after_survey = function(req, res){
 
-    /*user_model.findById(req.body.id_user, function(err, user) {
-        if (err) res.status(500).send(err);
-        else {
-            var points_user = user.points + 50;
-            user_model.findByIdAndUpdate(req.body.id_user, {$push: {surveys: req.params.id_survey},
-                $set: {points: points_user}}, {new: true}, function (err, user) {
-                    if (err) res.send(err);
-                    else {
-                        console.log("new update point: " + user.points + " surveys_array : " + user.surveys);
-                    }
-                });
-        }
-    });*/
-    survey_model.findById(req.params.id_survey, function(err, survey){
+
+    answer_model.find({'id_survey': req.params.id_survey}, function(err, answers) {
+        answers.forEach( function(answer, i){
+            answer_user_model.find({'id_answer': answers[i]._id}).exec(function (err, results) {
+            console.log("on passe ici : results length" + results.length);
+            console.log('i ' + i);
+            answer_model.findByIdAndUpdate(answers[i]._id,{
+                $set: {value: results.length}
+            }, {new: true}, function (err) {
+                if (err) res.send(err);
+                else {
+                    console.log('couting done');
+                }
+            });
+        });
+    });
+    });
+
+
+     survey_model.findById(req.params.id_survey, function(err, survey){
         if(err) res.status(500).send(err);
         else{
             var survey_points = survey.points;
@@ -160,7 +168,8 @@ exports.updates_after_survey = function(req, res){
                     }, {new: true}, function (err, user) {
                         if (err) res.send(err);
                         else {
-                            console.log("new update point: " + user.points + " surveys_array : " + user.surveys);
+                            console.log("new update point: " + user.points + " surveys_array : "
+                                + user.surveys+ " surveys points : " + survey_points);
                         }
                     });
                 }
@@ -174,12 +183,11 @@ exports.updates_after_survey = function(req, res){
 
 exports.list_surveys_completed = function(req, res){
     user_model.findById(req.query.id_user).populate({
-        path: "surveys", model: "survey", select: ' -id_facebook -username -login -mdp ' +
-        '-points -url_fb_picture'}).exec(function(err, user ) {
+        path: "surveys", model: "survey"}).exec(function(err, user ) {
         if (err) res.send(err);
         else {
         var myObj, x;
-
+        console.log(user);
         
         myObj = {
             "surveys":user.surveys,

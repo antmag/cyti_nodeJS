@@ -7,7 +7,10 @@ var survey_model = require('../models/survey');
 var question_model = require('../models/question');
 var answer_model = require('../models/answer');
 var user_model = require('../models/schema_user');
-var json_parsing = require('../../parsing_json');
+var fs = require('fs');
+var http = require('http');
+var https = require('https');
+
 
 //sanitizes inputs against query selector injection attacks
 var sanitize = require('mongo-sanitize');
@@ -33,24 +36,40 @@ exports.list_all = function(req, res){
  * @param res
  */
 exports.new_survey = function(req, res) {
-    /*var picture;
-    switch (req.body.theme) {
-        case 'sport':
-            picture= "Sunday";
-            break;
-        case 1:
-            day = "Monday";
-            break;
-        case 2:
-            day = "Tuesday";
-            break;
-        case 3:
-            day = "Wednesday";
-            break;
-        case 4:*/
+
+    var picture = req.body.url;
+
+    if(picture !== "undefined" ){
+        picture= '../../public/images/' + sanitize(req.body.id_survey)  + "_" + Date.now() +'.jpg';
+        download(req.body.url, picture , function(err){
+            if (err) {
+                console.error(err);
+                return;
+            }
+            console.log('Download Done !');
+        });
+    }else{
+        switch (req.body.theme) {
+            case 'sport':
+                picture = "../../public/images/theme_sport_default.jpg";
+                break;
+            case 'beauty':
+                picture = "../../public/images/theme_beauty_default.jpg";
+                break;
+            case 'fashion':
+                picture = "../../public/images/theme_fashion_default.jpg";
+                break;
+            case 'shopping':
+                picture = "../../public/images/theme_shopping_default.jpg";
+                break;
+        }
+    }
+
     function randomIntInc (low, high) {
         return Math.floor(Math.random() * (high - low + 1) + low);
     }
+
+
 
     var survey = {
         _id: req.body.id_survey,
@@ -60,9 +79,10 @@ exports.new_survey = function(req, res) {
         theme: sanitize(req.body.theme),
         status: "offline",
         points: randomIntInc(20,100),
-        //picture_url: picture,
+        picture_url: picture,
         duration: ""
     };
+    console.log(survey);
     new survey_model(survey).save(function (err) {
         if (err) {
             res.send(err);
@@ -127,9 +147,8 @@ exports.change_status_survey = function(req, res){
  */
 exports.list_surveys_online = function(req, res) {
 
-    //OK MARCHE MAIS LEO A BESOIN TOUS LES SONDAGES ONLINE CE GROS NUL !!
 
-    /*user_model.findById(req.body.id_user, function (err, user) {
+    user_model.findById(req.body.id_user, function (err, user) {
         if (err) res.status(500).send(err);
         else {
             survey_model.find({"status": "online", "_id": { "$nin": user.surveys } }, function (err, survey) {
@@ -143,10 +162,10 @@ exports.list_surveys_online = function(req, res) {
                 }
             });
         }
-    });*/
+    });
 
 
-    survey_model.find({"status": "online"}, function (err, survey) {
+    /*survey_model.find({"status": "online"}, function (err, survey) {
         if (err) {
             // Note that this error doesn't mean nothing was found,
             // it means the database had an error while searching, hence the 500 status
@@ -155,7 +174,7 @@ exports.list_surveys_online = function(req, res) {
         else {
             res.json(survey);
         }
-    });
+    });*/
 };
 
 
@@ -239,38 +258,70 @@ exports.update_survey = function(req, res){
     });
 };
 
-exports.json_file_stats = function(req, res){
+exports.json_file_stats = function(req, res) {
 
 
-
-    survey_model.findById(req.body.id_survey).populate({path: "questions", model: "question",
-        select: '-id_survey -position -txt -type -mandatory', populate: { path: 'answers',
-        model: 'answer', select: ' -id_question -id_survey -position -txt'}}).exec(function (err, surveys) {
-        if(err){
-            res.send(err);
-        }
-        else{
-
-            for(var i=0; i < surveys.questions.length; i++){
-                /*surveys.questions[i].forEach(function(element) {
-                    console.log(element + "t");
-                });*/
-                if(surveys.questions[i].answers.length !== 0){
-                    surveys.questions[i].answers.forEach(function(element){
-                        element.value = "toto";
-                        console.log(element);
-                    });
-                    //console.log(surveys.questions[i].answers);
-
-                }
-
+        survey_model.findById(req.query.id_survey).select( '-title -description -survey_typ -theme ' +
+            '-status -points -survey_type -duration').populate({
+            path: "questions", model: "question",
+            select: '-id_survey -position -txt -type -mandatory', populate: {
+                path: 'answers',
+                model: 'answer', select: ' -id_question -id_survey -position -txt'
             }
+        }).exec(function (err, surveys) {
+            if (err) {
+                res.send(err);
+            }
+            else {
+                res.json(surveys);
+            }
+        });
+};
 
-            /*surveys.questions.forEach(function(element) {
-                console.log(element.answers + "t");
-            });*/
+function download(url, dest, cb) {
+    // on créé un stream d'écriture qui nous permettra
+    // d'écrire au fur et à mesure que les données sont téléchargées
+    const file = fs.createWriteStream(dest);
+    var httpMethod;
+
+    // afin d'utiliser le bon module on vérifie si notre url
+    // utilise http ou https
+    if (url.indexOf(('https://')) !== -1) httpMethod = https;
+    else httpMethod = http;
+
+    // on lance le téléchargement
+    const request = httpMethod.get(url, function (response) {
+        // on vérifie la validité du code de réponse HTTP
+        if (response.statusCode !== 200) {
+            return cb('Response status was ' + response.statusCode);
         }
+
+        // écrit directement le fichier téléchargé
+        response.pipe(file);
+
+        // lorsque le téléchargement est terminé
+        // on appelle le callback
+        file.on('finish', function () {
+            // close étant asynchrone,
+            // le cb est appelé lorsque close a terminé
+            file.close(cb);
+        });
     });
 
-};
+    // check for request error too
+    request.on('error', function (err) {
+        fs.unlink(dest);
+        cb(err.message);
+    });
+
+    // si on rencontre une erreur lors de l'écriture du fichier
+    // on efface le fichier puis on passe l'erreur au callback
+    file.on('error', function (err) {
+        // on efface le fichier sans attendre son effacement
+        // on ne vérifie pas non plus les erreur pour l'effacement
+        fs.unlink(dest);
+        cb(err.message);
+    });
+}
+
 
