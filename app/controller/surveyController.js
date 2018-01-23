@@ -50,17 +50,18 @@ exports.new_survey = function(req, res) {
         });
     }else{
         console.log("dans le switch");
+        console.log("theme " +req.body.theme);
         switch (req.body.theme) {
-            case 'sport':
+            case "sport":
                 picture = "public/images/theme_sport_default.jpg";
                 break;
-            case 'beauty':
+            case "beauty":
                 picture = "public/images/theme_beauty_default.jpg";
                 break;
-            case 'fashion':
+            case "fashion":
                 picture = "public/images/theme_fashion_default.jpg";
                 break;
-            case 'shopping':
+            case "shopping":
                 picture = "public/images/theme_shopping_default.jpg";
                 break;
             default :
