@@ -39,7 +39,7 @@ exports.new_survey = function(req, res) {
 
     var picture = req.body.url;
     console.log("picture url : " + picture);
-    /*if(picture !== "undefined" ){
+    if(picture != null ){
         picture= 'public/images/' + sanitize(req.body.id_survey)  + "_" + Date.now() +'.jpg';
         download(req.body.url, "./" + picture , function(err){
             if (err) {
@@ -98,7 +98,7 @@ exports.new_survey = function(req, res) {
                 }
             });
         }
-    });*/
+    });
 };
 
 /** Front side
