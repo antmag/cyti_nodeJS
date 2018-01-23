@@ -38,8 +38,8 @@ exports.list_all = function(req, res){
 exports.new_survey = function(req, res) {
 
     var picture = req.body.url;
-
-    if(picture !== "" ){
+    console.log(req.body.url);
+    if(picture !== "undefined" ){
         picture= 'public/images/' + sanitize(req.body.id_survey)  + "_" + Date.now() +'.jpg';
         download(req.body.url, "./" + picture , function(err){
             if (err) {
