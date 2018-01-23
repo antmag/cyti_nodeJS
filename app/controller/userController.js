@@ -153,6 +153,13 @@ exports.updates_after_survey = function(req, res){
     });
     });
 
+    survey_model.findByIdAndUpdate(req.params.id_survey, { $inc: { nb_answers: 1 }}, {new: true}, function(err, survey) {
+        if (err) res.status(500).send(err);
+        else {
+            console.log("nb_answers : " + survey.nb_answers);
+            res.end("nb_answers increment done" + survey);
+        }
+    });
 
      survey_model.findById(req.params.id_survey, function(err, survey){
         if(err) res.status(500).send(err);
@@ -171,6 +178,7 @@ exports.updates_after_survey = function(req, res){
                         else {
                             console.log("new update point: " + user.points + " surveys_array : "
                                 + user.surveys+ " surveys points : " + survey_points);
+                            res.end("update points done");
                         }
                     });
                 }
