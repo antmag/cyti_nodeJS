@@ -29,6 +29,8 @@ exports.new_answer_user = function(req, res) {
     answer.id_answer = req.body.id_reponse ?
         req.body.id_reponse: "undefined";
 
+    answer.date = Date.now();
+
     console.log('answer ' + answer.id_answer + 'id_contact ' +req.body.id_contact);
     answer_user_model.findOneAndUpdate({ 'id_question': req.body.id_question, 'id_user': req.body.id_contact}, {
         $set: answer}, {upsert:true}, function (err) {
