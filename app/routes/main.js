@@ -38,7 +38,7 @@ var allowCrossDomain = function(req, res, next) {
 };
 app.use(allowCrossDomain);
 
-app.use("/index", express.static(path.join(__dirname, "../../public")));
+app.use("/", express.static(path.join(__dirname, "../../public")));
 
 // middleware that is specific to this router
 app.use(function timeLog(req, res, next) {
@@ -50,7 +50,7 @@ app.use(function timeLog(req, res, next) {
 app.post('/', survey_controller.new_survey);
 
 //List all surveys with questions and answers for a specific user
-app.get('/', survey_controller.list_all);
+app.get('/survey/', survey_controller.list_all);
 
 // Add a new question with its respective answers
 app.post('/survey/add_question',question_answer_controller.add_question_with_answers);
