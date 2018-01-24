@@ -144,7 +144,10 @@ exports.updates_after_survey = function(req, res){
             answer_model.findByIdAndUpdate(answers[i]._id,{
                 $set: {value: results.length}
             }, {new: true}, function (err) {
-                if (err) res.send(err);
+                if (err) {
+                    console.log("after answer_model.findByIdAndUpdate(answers[i]._id" + err);
+                    return res.send(err);
+                }
                 else {
                     console.log('couting done');
                 }
@@ -154,7 +157,10 @@ exports.updates_after_survey = function(req, res){
     });
 
     survey_model.findByIdAndUpdate(req.params.id_survey, { $inc: { nb_answers: 1 }}, {new: true}, function(err, survey) {
-        if (err) res.status(500).send(err);
+        if (err){
+          console.log("after increment " + err);
+          return res.status(500).send(err);
+        }
         else {
             console.log("nb_answers : " + survey.nb_answers);
             res.end("nb_answers increment done" + survey);
@@ -162,22 +168,31 @@ exports.updates_after_survey = function(req, res){
     });
 
      survey_model.findById(req.params.id_survey, function(err, survey){
-        if(err) res.status(500).send(err);
+        if(err){
+            console.log("after survey find by id " + err);
+            return res.status(500).send(err);
+        }
         else{
             var survey_points = survey.points;
             user_model.findById(req.body.id_user, function(err, user) {
-                if (err) console.log(err);
+                if (err) console.log("ici " +err);
                 else {
                     var points_user = user.points + survey_points;
                     user_model.findByIdAndUpdate(req.body.id_user, {
                         $push: {surveys: req.params.id_survey},
                         $set: {points: points_user}
                     }, {new: true}, function (err, user) {
-                        if (err) res.send(err);
+                        if (err){
+                            console.log("là " + err);
+                            return res.send(err);
+                        }
                         else {
                             user_model.findById(req.body.id_user).populate({
                                 path: "surveys", model: "survey"}).exec(function(err, user ) {
-                                if (err) res.send(err);
+                                if (err) {
+                                    console.log("wesh " + err);
+                                    return res.send(err);
+                                }
                                 else {
                                 var myObj, x;                                
                                 myObj = {
